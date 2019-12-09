@@ -1,0 +1,334 @@
+#include<stdio.h>
+#include<conio.h>
+
+struct Node
+	{ int INFO;
+	  int bal;
+	  struct Node *Left;
+	  struct Node *Right;
+	};
+typedef struct Node Simpul;
+Simpul 	*P, *Q, *R, *S, *Root;
+		*Root, *QQ, *PP;
+Simpul	*fp, *ya, *fya;
+Simpul *tree, *rp, *f, *s;
+int i,x X, imbal, Flag;
+int A[8] = {75, 66, 50, 54, 62, 84, 95, 55};
+
+void Inisialisasi()
+{  Root = NULL;
+   P = NULL;
+   fp = NULL; 
+   fya = NULL; 
+}
+void BuatSimpul()
+  {
+    P = (Simpul*) malloc(sizeof(Simpul));
+	if(P != NULL)
+	   { P->INFO = X;
+	     P->bal = 0;
+		 P->Left = NULL;
+		 P->Right = NULL;
+	   }
+	else
+	   { printf("Memory Heap Penuh");
+	     return;
+	   }
+  }
+void BuatSimpulAkar()
+{ if(Root == NULL)
+   { 
+		Root = P; 
+   }
+  else
+   printf("Tree Sudah Ada");
+}
+void leftrotation()
+	{ 
+		R = Root->Right;
+		Root->Right = R->Left;
+		R->Left = Root;
+		Root = R;
+		if(fya != NULL)
+			{ if(X < fya->INFO)
+				fya->Left	= Root;
+	    else
+				fya->Right = Root;
+			}
+		Root->bal = 0;
+		Root->Left->bal = 0;
+	}
+void rightrotation()
+	{ 
+		R = Root->Left;
+		Root->Left = R->Right;
+		R->Right = Root;
+		Root = R;
+		if(fya != NULL)
+			{	if(X < fya->INFO)
+				fya->Left = Root;
+		else
+				fya->Right = Root;
+			}
+		Root->bal = 0;
+		Root->Right->bal = 0;
+	}
+void PreOrder(Simpul *T)
+   { 
+		if(T != NULL)
+		{  
+			printf("%i ",T->INFO);
+			PreOrder(T->Left);
+			PreOrder(T->Right);
+		}
+   }
+void InOrder(Simpul *T)
+   { 
+		if(T != NULL)
+		{  
+			InOrder(T->Left);
+			printf("%i ",T->INFO);
+			InOrder(T->Right);
+		}
+   }
+void PostOrder(Simpul *T)
+   { 
+		if(T != NULL)
+		{  
+			PostOrder(T->Left);
+			PostOrder(T->Right);
+			printf("%i ",T->INO);
+		}
+   }
+voidInsertSimpulBinSearch()
+   { 
+		fp = NULL; 
+		PP = Root;
+		fya = NULL;
+		ya = PP;
+		while(PP != NULL)
+			( 
+				if(X == PP->INFO)
+				return;
+				if(X < PP->INFO)
+					Q = PP->Left;
+				else
+					Q = PP->Right;
+				if(Q != NULL)
+				{ 
+					if(Q->bal != 0)
+					{ 
+						fya = PP;
+						ya = Q;
+					}
+			}
+				fp = PP;
+				PP = Q;
+	}
+	BuatSimpul();
+	Q = P;
+	Q ->bal = 0;
+	if(X < fp->INFO)
+		fp->Left = Q;
+	else
+		fp->Right = Q;
+	if(X < ya->INFO)
+		pp->Left;
+	else
+		PP = ya->Right;
+		S = PP;
+	while(PP != Q)
+		{
+			if(X < PP->INFO)
+				{
+					PP->bal = 1;
+					PP = PP->Left;
+				}
+			else
+				{
+					PP->bal = -1;
+					PP = PP->Right;
+				}
+			if(X < ya->INFO)
+				imbal = 1;
+			else
+				imbal = -1;
+			if(ya->bal == 0)
+				{
+					ya->bal = imbal;
+					return;
+				}
+			if(ya->bal != imbal)
+				{
+					ya->bal = 0;
+					return;
+				}
+			if(S -> bal == imbal)
+				{
+					PP = S;
+						if(imbal == 1)
+							{
+								Root = ya;
+								rightrotation();
+								ya = Root;
+							}
+						else
+							{
+								Root = ya;
+								leftrotation();
+								ya = Root;
+							}
+						ya->bal = 0;
+						S->bal = 0;
+			else
+				{
+					if(imbal == 1)
+						{
+							PP = S->Right;
+							Root = S;
+							leftrotation();
+							S = Root;
+							ya -> Left = PP;
+							Root = ya;
+							rightrotation();
+							ya = Root;
+			if(PP->bal == 0)
+				{
+					ya->bal = 0;
+					S->bal = 0;
+				}
+					else
+						{
+							if(PP->bal == imbal)
+								{
+									ya->bal = -imbal;
+									S->bal = 0;
+								}
+							else
+								{
+									ya->bal = 0;
+									S->bal = imbal;
+								}
+						}
+					PP->bal = 0;
+			if(fya == NULL)
+				{
+					Root = PP;
+				}
+			else
+				{
+					if(ya == fya->Right)
+						fya->Right = PP;
+					else
+						fya->Left = PP;
+				}
+			return;
+		}
+void Delete(int X)
+{
+	P = Root;
+	Q = NULL;
+	while(P != NULL && P->INFO !=X)
+		{	
+			Q = P;
+			if(X < P->INFO)
+				{
+					P = P->Left;
+				}
+			else
+				{
+					P = P->Right;
+				}
+		}
+	if(P == NULL)
+		{
+			printf("Tak ada simpul yang di hapus");
+			return;
+		}
+		
+	if(P->Left == NULL)
+		{
+			rp - P->Right;
+		}
+	else
+		{
+			if(P->Right == NULL)
+				{
+					rp = P->Left;
+				}
+			else
+				{
+					f = P;
+					rp = P->Right;
+					S = rp->Left;
+					while(S != NULL)
+						{
+							f = rp;
+							rp = S;
+							S = rp->Left;
+						}
+					if(f != P)
+						{
+							f->Left = rp->Right;
+							rp->Right = P->Right;
+						}
+							rp->Left = P->Left;
+				}
+			if(Q == NULL)
+				{
+					Root = rp;
+				}
+			else
+				{
+					if(P == Q->Left)
+						Q->Left = rp;
+					else	
+						Q->Right = rp;
+				}
+			printf("\n%d Sudah Di Hapus", P->INFO);
+			free(P);
+			return;
+}
+int main()
+{
+	clrscr();
+	printf("\n DAta yang di insert: ");
+	j=7;
+	for (i = 0; i<=j; i++)
+		{
+			printf("3i", A[i]);
+		}
+		
+	printf("\n");
+	i=0;
+	X=A[i];
+	BuatSimpul();
+	BuatSimpulAkar();
+	
+	for(i=1; i<=j; i++)
+		{
+			X=A[i];
+			InsertSimpulBinSearch();
+		}
+		
+	printf("\nPreOrder : ");
+	PreOrder(Root);
+	printf("\nInOrder  : ");
+	InOrder(Root);
+	printf("\PostOrder : ");
+	PostOrder(Root);
+	
+	printf("\nSimpul yang di hapus: ");
+	scanf("%i", &X);
+	Delete(X);
+	printf("\nPreOrder : ");
+	PreOrder(Root);
+	printf("\nInOrder : ");
+	InOrder(Root);
+	printf("\nPostOrder : ");
+	PostOrder(Root);
+	
+	Printf("\nSelesai");
+	getch();
+	return(0);
+}
